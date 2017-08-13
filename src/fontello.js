@@ -1,7 +1,6 @@
 const fs = require('fs');
 const needle = require('needle');
 const open = require('open');
-const {print} = require('util');
 const path = require('path');
 const unzip = require('unzip');
 
@@ -9,7 +8,7 @@ const unzip = require('unzip');
 const HOST = 'http://fontello.com';
 
 const getSession = function(options, requestOptions, successCallback, errorCallback) {
-  print('Creating a new session'.green);
+  console.log('Creating a new session'.green);
   const data = {
     config: {
       file: options.config,
@@ -22,11 +21,11 @@ const getSession = function(options, requestOptions, successCallback, errorCallb
     const sessionId = body;
 
     if (response.statusCode === 200) {
-      fs.writeFile('.fontello-session', sessionId, function(err) {
+      fs.writeFile(options.session, sessionId, function(err) {
           if (!err) {
-            return print('Session was saved as .fontello-session \n'.green);
+            return console.log(`Session was saved as ${options.session} \n`.green);
           } else {
-            return print(err + "\n");
+            return console.log(err + "\n");
           }
       });
       const sessionUrl = `${options.host}/${sessionId}`;
@@ -42,14 +41,14 @@ const apiRequest = function(options, successCallback, errorCallback) {
 
   const requestOptions = { multipart: true };
   if (options.proxy != null) { requestOptions.proxy = options.proxy; }
-  if (fs.existsSync(".fontello-session")) {
-    const stats = fs.statSync(".fontello-session");
+  if (fs.existsSync(options.session)) {
+    const stats = fs.statSync(options.session);
 
     const timeDiff = Math.abs(new Date().getTime() - stats.mtime.getTime());
 
     if (timeDiff < (1000 * 3600 * 24)) {
-      print('Using .fontello-session'.green);
-      const sessionId = fs.readFileSync('.fontello-session');
+      console.log(`Using ${options.session}`.green);
+      const sessionId = fs.readFileSync(options.session);
       const sessionUrl = `${options.host}/${sessionId}`;
       return (typeof successCallback === 'function' ? successCallback(sessionUrl) : undefined);
     }
@@ -100,12 +99,12 @@ const fontello = {
               }
             }
           }))
-          .on('finish', (() => print('Install complete.\n'.green)));
+          .on('finish', (() => console.log('Install complete.\n'.green)));
 
       } else {
         return zipFile
           .pipe(unzip.Extract({ path: '.' }))
-          .on('finish', (() => print('Install complete.\n'.green)));
+          .on('finish', (() => console.log('Install complete.\n'.green)));
       }
     });
   },

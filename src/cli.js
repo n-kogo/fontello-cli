@@ -4,8 +4,7 @@ const mkdirp = require('mkdirp');
 const path = require('path');
 const pjson = require(path.join(__dirname, '..', 'package.json'));
 const program = require('commander');
-const {print} = require('util');
-const fontello = require(path.join(__dirname, '..', 'lib', 'fontello'));
+const fontello = require('./fontello.js');
 
 
 const dirIsValid = function(path) {
@@ -25,6 +24,7 @@ program
   .version(pjson.version)
   .usage('[command] [options]')
   .option('--config [path]', 'path to fontello config. defaults to ./config.json')
+  .option('--session [path]', 'path to fontello config. defaults to ./.fontello-session')
   .option('--css [path]', 'path to css directory (optional). if provided, --font option is expected.')
   .option('--font [path]', 'path to font directory (optional). if provided, --css option is expected.')
   .option('--host [host]', 'address of fontello instance (optional).')
@@ -40,18 +40,19 @@ program
     //
     if (program.css && program.font) {
       if (!dirIsValid(program.css)) {
-        print('--css path provided is not a directory.\n'.red);
+        console.log('--css path provided is not a directory.\n'.red);
         process.exit(1);
       }
 
       if (!dirIsValid(program.font)) {
-        print('--font path provided is not a directory.\n'.red);
+        console.log('--font path provided is not a directory.\n'.red);
         process.exit(1);
       }
     }
 
     return fontello.install({
       config: program.config || config,
+      session: program.session,
       css: program.css,
       font: program.font,
       host: program.host,
@@ -66,6 +67,7 @@ program
   .action((env, options) =>
     fontello.open({
       config: program.config || config,
+      session: program.session || '.fontello-session',
       host: program.host,
       proxy: program.proxy
     })

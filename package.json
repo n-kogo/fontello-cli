@@ -31,7 +31,9 @@
     "babel-preset-es2015": "^6.24.1"
   },
   "scripts": {
-    "build": "./node_modules/.bin/babel src --out-dir lib"
+    "build": "./node_modules/.bin/babel src --out-dir lib",
+    "test:open": "node ./src/cli.js open --config ./test/config.json --session ./test/.fontello-session",
+    "test:install": "node ./src/cli.js install --config ./test/config.json --css ./test/css --font ./test/font --session ./test/.fontello-session"
   },
   "repository": {
     "type": "git",
