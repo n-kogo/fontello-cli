@@ -1,6 +1,7 @@
 {
   "name": "fontello",
-  "description": "Command line interface for Fontello.",
+  "author": "ryantsangai@gmail.com",
+  "description": "Another Command line interface for Fontello.",
   "url": "https://github.com/ryantsangai/fontello-cli",
   "keywords": [
     "cli",
