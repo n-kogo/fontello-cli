@@ -1,5 +1,5 @@
 {
-  "name": "fontello-cli",
+  "name": "fontello",
   "description": "Command line interface for Fontello.",
   "url": "https://github.com/ryantsangai/fontello-cli",
   "keywords": [
@@ -37,6 +37,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/paulyoung/fontello-cli.git"
+    "url": "https://github.com/ryantsangai/fontello-cli.git"
   }
 }

@@ -24,7 +24,7 @@ program
   .version(pjson.version)
   .usage('[command] [options]')
   .option('--config [path]', 'path to fontello config. defaults to ./config.json')
-  .option('--session [path]', 'path to fontello config. defaults to ./.fontello-session')
+  .option('--session [path]', 'path to store session id. defaults to ./.fontello-session')
   .option('--css [path]', 'path to css directory (optional). if provided, --font option is expected.')
   .option('--font [path]', 'path to font directory (optional). if provided, --css option is expected.')
   .option('--host [host]', 'address of fontello instance (optional).')
