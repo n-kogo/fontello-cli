@@ -95,6 +95,9 @@ const fontello = {
                   const fontPath = path.join(options.font, fileName);
                   return entry.pipe(fs.createWriteStream(fontPath));
                 default:
+                  if (options.config && fileName === 'config.json') {
+					  return entry.pipe(fs.createWriteStream(options.config));
+                  }
                   return entry.autodrain();
               }
             }
